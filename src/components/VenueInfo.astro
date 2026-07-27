@@ -1,0 +1,68 @@
+---
+interface Venue {
+	exhibitionTitle?: string;
+	venue: string;
+	dates?: string;
+	curator?: string;
+	photography?: string;
+	participatingArtists?: string[];
+}
+
+interface Press {
+	label: string;
+	url: string;
+}
+
+interface Props {
+	venues?: Venue[];
+	catalogue?: string;
+	press?: Press[];
+}
+
+const { venues, catalogue, press } = Astro.props;
+---
+
+{
+	venues?.map((v) => (
+		<div class="venue">
+			{v.exhibitionTitle && (
+				<p>
+					<em>{v.exhibitionTitle}</em>
+				</p>
+			)}
+			<p>{[v.venue, v.dates].filter(Boolean).join(", ")}</p>
+			{v.curator && <p>Curated by {v.curator}.</p>}
+			{v.photography !== undefined && (
+				<p>
+					Photography by {v.photography}
+					{v.photography ? "." : ""}
+				</p>
+			)}
+			{v.participatingArtists && (
+				<p class="artists">
+					Participating Artists:
+					{v.participatingArtists.length > 0
+						? ` ${v.participatingArtists.join(", ")}.`
+						: ""}
+				</p>
+			)}
+		</div>
+	))
+}
+
+{catalogue && <p>{catalogue}</p>}
+
+{
+	press && press.length > 0 && (
+		<p class="press">
+			{press.map((item, i) => (
+				<>
+					<a href={item.url} target="_blank" rel="noopener noreferrer">
+						{item.label}
+					</a>
+					{i < press.length - 1 && ", "}
+				</>
+			))}
+		</p>
+	)
+}

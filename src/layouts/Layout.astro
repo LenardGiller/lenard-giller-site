@@ -1,0 +1,80 @@
+---
+import "../styles/global.css";
+import { getCollection } from "astro:content";
+
+interface Props {
+	title: string;
+	active: "home" | "works" | "info" | "contacts";
+	currentWorkSlug?: string;
+}
+
+const { title, active, currentWorkSlug } = Astro.props;
+
+const works =
+	active === "works"
+		? (await getCollection("works")).sort((a, b) => a.data.order - b.data.order)
+		: [];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="site">
+			<div class="sidebar">
+				<a class="email" href="mailto:lenard.giller@gmail.com">
+					Lenard.giller[at]gmail.com
+				</a>
+				<nav>
+					<a href="/" aria-current={active === "home" ? "page" : undefined}>
+						home
+					</a>
+					<a
+						id="works-link"
+						href="/works"
+						aria-current={active === "works" && !currentWorkSlug ? "page" : undefined}
+					>
+						works
+					</a>
+					{active === "works" && (
+						<div class="works-sublist">
+							{works.map((work) => (
+								<a
+									href={`/works/${work.id}/`}
+									aria-current={work.id === currentWorkSlug ? "page" : undefined}
+								>
+									{work.data.title}
+								</a>
+							))}
+						</div>
+					)}
+					<a href="/info" aria-current={active === "info" ? "page" : undefined}>
+						info
+					</a>
+					<a href="/contacts" aria-current={active === "contacts" ? "page" : undefined}>
+						contacts
+					</a>
+				</nav>
+			</div>
+			<main class="content">
+				<slot />
+			</main>
+		</div>
+		<script>
+			const worksLink = document.getElementById("works-link");
+			const sublist = document.querySelector<HTMLElement>(".works-sublist");
+
+			if (worksLink && sublist) {
+				worksLink.addEventListener("click", (event) => {
+					event.preventDefault();
+					sublist.style.display = sublist.style.display === "none" ? "" : "none";
+				});
+			}
+		</script>
+	</body>
+</html>

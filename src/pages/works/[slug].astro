@@ -1,0 +1,183 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import VenueInfo from "../../components/VenueInfo.astro";
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+	const works = await getCollection("works");
+	return works.map((work) => ({
+		params: { slug: work.id },
+		props: { work },
+	}));
+}
+
+const { work } = Astro.props;
+const { data } = work;
+const { Content } = await render(work);
+
+const allImages = import.meta.glob("/src/assets/works/*/*.{jpg,avif}", {
+	eager: true,
+}) as Record<string, { default: ImageMetadata }>;
+
+const images = Object.entries(allImages)
+	.filter(([path]) => path.includes(`/works/${work.id}/`))
+	.sort(([a], [b]) => a.localeCompare(b))
+	.map(([, mod]) => mod.default);
+
+const hasExtendedInfo =
+	(data.venues?.length ?? 0) > 1 ||
+	(data.venues?.some((v) => (v.participatingArtists?.length ?? 0) > 0) ?? false) ||
+	data.imagesBeforeInfo !== undefined ||
+	data.venuesAfterImages !== undefined;
+
+const splitIndex = data.imagesBeforeInfo ?? 1;
+const trailingImageCount = data.trailingImages ?? 0;
+const midImageCount = data.imagesBeforeDescription ?? 0;
+const leadImages = images.slice(0, splitIndex);
+const midImages = images.slice(splitIndex, splitIndex + midImageCount);
+const restImages = images.slice(
+	splitIndex + midImageCount,
+	trailingImageCount > 0 ? -trailingImageCount : undefined,
+);
+const finalImages = trailingImageCount > 0 ? images.slice(-trailingImageCount) : [];
+
+const venuesAfterImages = data.venuesAfterImages ?? 0;
+const allVenues = data.venues ?? [];
+const mainVenues = venuesAfterImages > 0 ? allVenues.slice(0, -venuesAfterImages) : allVenues;
+const trailingVenues = venuesAfterImages > 0 ? allVenues.slice(-venuesAfterImages) : [];
+const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
+---
+
+<Layout title={`${data.title} — Lenard Giller`} active="works" currentWorkSlug={work.id}>
+	<article class="work">
+		<h1><em>{data.title}</em></h1>
+
+		{
+			hasExtendedInfo ? (
+				<>
+					<div class={`meta${data.venueBeforeImages && data.descriptionBeforeImages ? " meta--tight" : ""}`}>
+						{!data.hideTopYear && (
+							<p>{[data.medium, data.year].filter(Boolean).join(". ")}</p>
+						)}
+						{data.venueBeforeImages && (
+							<VenueInfo venues={mainVenues} catalogue={data.catalogue} press={data.press} />
+						)}
+					</div>
+
+					{data.descriptionBeforeImages && (
+						<div class={`description${data.venueBeforeImages ? " description--tight" : ""}`}>
+							<Content />
+						</div>
+					)}
+
+					{leadImages.length > 0 && (
+						<div class="images">
+							{leadImages.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
+						</div>
+					)}
+
+					{!data.venueBeforeImages && !data.descriptionBeforeVenue && mainVenues.length > 0 && (
+						<div class="meta">
+							<VenueInfo
+								venues={mainVenues}
+								catalogue={catalogueWithMain ? data.catalogue : undefined}
+								press={data.press}
+							/>
+						</div>
+					)}
+
+					{midImages.length > 0 && (
+						<div class="images">
+							{midImages.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
+						</div>
+					)}
+
+					{!data.descriptionBeforeImages && (
+						<div class="description">
+							<Content />
+						</div>
+					)}
+
+					{!data.venueBeforeImages && data.descriptionBeforeVenue && mainVenues.length > 0 && (
+						<div class="meta">
+							<VenueInfo
+								venues={mainVenues}
+								catalogue={catalogueWithMain ? data.catalogue : undefined}
+								press={data.press}
+							/>
+						</div>
+					)}
+
+					{restImages.length > 0 && (
+						<div class="images">
+							{restImages.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
+						</div>
+					)}
+
+					{trailingVenues.length > 0 && (
+						<div class="meta">
+							<VenueInfo
+								venues={trailingVenues}
+								catalogue={!catalogueWithMain ? data.catalogue : undefined}
+							/>
+						</div>
+					)}
+
+					{finalImages.length > 0 && (
+						<div class="images">
+							{finalImages.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
+						</div>
+					)}
+
+					{data.photography !== undefined && (
+						<div class="meta">
+							<p>
+								Photography by {data.photography}
+								{data.photography ? "." : ""}
+							</p>
+						</div>
+					)}
+				</>
+			) : (
+				<>
+					<div class="meta">
+						{!data.hideTopYear && (
+							<p>{[data.medium, data.year].filter(Boolean).join(". ")}</p>
+						)}
+						<VenueInfo venues={data.venues} catalogue={data.catalogue} press={data.press} />
+					</div>
+
+					<div class="description">
+						<Content />
+					</div>
+
+					{images.length > 0 && (
+						<div class="images">
+							{images.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
+						</div>
+					)}
+
+					{data.photography !== undefined && (
+						<div class="meta">
+							<p>
+								Photography by {data.photography}
+								{data.photography ? "." : ""}
+							</p>
+						</div>
+					)}
+				</>
+			)
+		}
+	</article>
+</Layout>

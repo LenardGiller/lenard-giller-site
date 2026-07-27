@@ -1,0 +1,213 @@
+:root {
+	--fg: #000000;
+	--muted: #767676;
+	--bg: #ffffff;
+	--font: Helvetica, "Helvetica Neue", Arial, sans-serif;
+	--nav-width: 260px;
+	--base-size: 12px;
+	--base-line: 21.6px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: var(--bg);
+	color: var(--fg);
+	font-family: var(--font);
+	font-size: var(--base-size);
+	line-height: 1.8;
+	-webkit-font-smoothing: antialiased;
+}
+
+a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.5px;
+}
+
+a:hover {
+	color: var(--muted);
+}
+
+.site {
+	display: flex;
+	align-items: flex-start;
+	min-height: 100vh;
+}
+
+.sidebar {
+	flex: 0 0 var(--nav-width);
+	padding: 115px 24px 24px 48px;
+	position: sticky;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.sidebar .email {
+	display: block;
+	text-decoration: none;
+	font-size: var(--base-size);
+	line-height: var(--base-line);
+	white-space: nowrap;
+}
+
+.sidebar .email:hover {
+	color: var(--muted);
+}
+
+.sidebar nav {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.sidebar nav a {
+	text-decoration: none;
+	color: var(--fg);
+	font-size: var(--base-size);
+}
+
+.sidebar nav a:hover,
+.sidebar nav a[aria-current="page"] {
+	color: var(--muted);
+}
+
+.content {
+	flex: 1 1 auto;
+	padding: 115px 48px 96px 0;
+	min-width: 0;
+}
+
+.contact-link {
+	margin: 0;
+	line-height: var(--base-line);
+}
+
+.cv {
+	max-width: 900px;
+}
+
+.cv .group {
+	margin-bottom: calc(var(--base-line) * 2);
+}
+
+.cv .group:last-child {
+	margin-bottom: 0;
+}
+
+.cv p {
+	margin: 0;
+}
+
+.cv .label {
+	margin-bottom: var(--base-line);
+}
+
+/* work titles nested under "works" while inside /works */
+.works-sublist {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.works-sublist a {
+	text-decoration: none;
+	color: var(--fg);
+	font-size: var(--base-size);
+	font-style: italic;
+}
+
+.works-sublist a:hover,
+.works-sublist a[aria-current="page"] {
+	color: var(--muted);
+}
+
+.work h1 {
+	font-size: var(--base-size);
+	font-weight: 700;
+	font-style: italic;
+	margin: 0;
+}
+
+.work .meta {
+	max-width: 900px;
+	margin-bottom: 24px;
+}
+
+.work .meta:has(+ .meta) {
+	margin-bottom: 0;
+}
+
+.work .meta--tight {
+	margin-bottom: 0;
+}
+
+.work .description--tight {
+	margin-top: 0;
+	margin-bottom: var(--base-line);
+}
+
+.work .description--tight p {
+	margin: 0;
+}
+
+.work .meta p {
+	margin: 0;
+}
+
+.work .venue {
+	margin: 0;
+}
+
+.work .meta .artists {
+	margin-top: var(--base-line);
+	margin-bottom: var(--base-line);
+}
+
+.work .description {
+	max-width: 900px;
+	margin-bottom: 32px;
+}
+
+.work .description p {
+	margin: 0 0 16px;
+}
+
+.work .images {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-width: 900px;
+	margin-bottom: calc(var(--base-line) * 2);
+}
+
+.work .images img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+@media (max-width: 720px) {
+	.site {
+		flex-direction: column;
+	}
+
+	.sidebar {
+		position: static;
+		padding: 32px 24px 8px;
+	}
+
+	.content {
+		padding: 8px 24px 64px;
+	}
+}
