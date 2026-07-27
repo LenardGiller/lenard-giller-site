@@ -3,8 +3,7 @@ title: dreamworks
 order: 12
 year: "2022"
 medium: 35mm film, color, silent, 400 ft
-imagesBeforeInfo: 1
-imagesBeforeDescription: 1
+imagesBeforeInfo: 3
 venues:
   - exhibitionTitle: DreamWorks
     venue: Petrine, Paris

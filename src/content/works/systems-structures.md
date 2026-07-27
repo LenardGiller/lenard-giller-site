@@ -3,7 +3,7 @@ title: systems/structures
 order: 5
 year: "2024"
 medium: digital video transferred from silent 16mm film, color, silent, 107.8 ft
-imagesBeforeInfo: 5
+imagesBeforeInfo: 1
 venuesAfterImages: 1
 trailingImages: 1
 venues:
