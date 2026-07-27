@@ -9,21 +9,6 @@ photography: Thomas Lannes
 venues:
   - venue: Petrine, Paris
     dates: 20 October – 20 December, 2025
-press:
-  - label: e-flux
-    url: https://www.e-flux.com/criticism/6782338/paris-roundup
-  - label: Frieze
-    url: https://www.frieze.com/article/critics-guide-paris-2025
-  - label: Mousse Magazine
-    url: https://www.moussemagazine.it/magazine/lenard-giller-petrine-paris-2025/
-  - label: ArtReview
-    url: https://www.instagram.com/p/DQHdIr3k071/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D
-  - label: Art Viewer
-    url: https://artviewer.org/lenard-giller-at-petrine-paris/
-  - label: CURA
-    url: https://www.instagram.com/p/DQl4M9egrGa/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D
-  - label: The Art Newspaper
-    url: https://www.artnewspaper.fr/2025/11/07/portiere-de-voiture-bambous-peints-et-depecage-dun-arbre
 ---
 The Messingkauf Dialogues, from the German Der Messingkauf, is arguably Bertolt Brecht's most pivotal text, serving as an imprint of thoughts for his Epic theatre movement and dialectics of dramaturgy. The unfinished work, written between 1939 and 1942, is a lengthy jumble of fragmented notes on theatre's potentialities beyond simple stage narrative, in which form is a malleable device to provoke critical self-reflection. These scribblings produce a palimpsest wherein layers of textual sediment trace the seismic changes Brecht yielded in theatre.
 

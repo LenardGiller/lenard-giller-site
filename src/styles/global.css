@@ -93,12 +93,16 @@ a:hover {
 	line-height: var(--base-line);
 }
 
+.contact-link a {
+	text-decoration: none;
+}
+
 .cv {
 	max-width: 900px;
 }
 
 .cv .group {
-	margin-bottom: calc(var(--base-line) * 2);
+	margin-bottom: var(--base-line);
 }
 
 .cv .group:last-child {
@@ -110,7 +114,7 @@ a:hover {
 }
 
 .cv .label {
-	margin-bottom: var(--base-line);
+	margin-bottom: 0;
 }
 
 /* work titles nested under "works" while inside /works */
@@ -125,6 +129,7 @@ a:hover {
 	color: var(--fg);
 	font-size: var(--base-size);
 	font-style: italic;
+	text-transform: lowercase;
 }
 
 .works-sublist a:hover,
