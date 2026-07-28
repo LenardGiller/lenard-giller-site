@@ -4,7 +4,6 @@ order: 4
 year: "2025"
 medium: 5-channel digital audio system
 descriptionBeforeImages: true
-catalogue: Catalogue Published by NERO
 photography: Daniele Molajoli
 venues:
   - exhibitionTitle: Post Scriptum. A Museum Forgotten by Heart

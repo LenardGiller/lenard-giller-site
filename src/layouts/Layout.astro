@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 
 interface Props {
 	title: string;
-	active: "home" | "works" | "info" | "contacts";
+	active: "home" | "works" | "bibliography" | "contacts";
 	currentWorkSlug?: string;
 }
 
@@ -53,8 +53,8 @@ const works =
 							))}
 						</div>
 					)}
-					<a href="/info" aria-current={active === "info" ? "page" : undefined}>
-						info
+					<a href="/bibliography" aria-current={active === "bibliography" ? "page" : undefined}>
+						bibliography
 					</a>
 					<a href="/contacts" aria-current={active === "contacts" ? "page" : undefined}>
 						contacts
