@@ -1,8 +1,8 @@
 ---
 title: Revisions
 order: 9
-year: "2023"
-medium: multi-channel installation
+year: ""
+medium: multi-channel installation, 2023
 photography: Jorge Stride
 imagesBeforeInfo: 4
 venues:
