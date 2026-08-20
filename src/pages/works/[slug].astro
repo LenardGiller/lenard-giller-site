@@ -47,6 +47,11 @@ const allVenues = data.venues ?? [];
 const mainVenues = venuesAfterImages > 0 ? allVenues.slice(0, -venuesAfterImages) : allVenues;
 const trailingVenues = venuesAfterImages > 0 ? allVenues.slice(-venuesAfterImages) : [];
 const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
+
+// images to render after the "Photography by ..." credit line (simple layout only)
+const afterPhotographyCount = data.imagesAfterPhotography ?? 0;
+const mainImages = afterPhotographyCount > 0 ? images.slice(0, -afterPhotographyCount) : images;
+const afterPhotographyImages = afterPhotographyCount > 0 ? images.slice(-afterPhotographyCount) : [];
 ---
 
 <Layout title={`${data.title} — Lenard Giller`} active="works" currentWorkSlug={work.id}>
@@ -160,9 +165,9 @@ const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
 						<Content />
 					</div>
 
-					{images.length > 0 && (
+					{mainImages.length > 0 && (
 						<div class="images">
-							{images.map((img) => (
+							{mainImages.map((img) => (
 								<Image src={img} alt={data.title} width={2000} quality={90} />
 							))}
 						</div>
@@ -174,6 +179,14 @@ const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
 								Photography by {data.photography}
 								{data.photography ? "." : ""}
 							</p>
+						</div>
+					)}
+
+					{afterPhotographyImages.length > 0 && (
+						<div class="images">
+							{afterPhotographyImages.map((img) => (
+								<Image src={img} alt={data.title} width={2000} quality={90} />
+							))}
 						</div>
 					)}
 				</>

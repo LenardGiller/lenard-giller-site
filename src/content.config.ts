@@ -24,6 +24,7 @@ const works = defineCollection({
 		imagesBeforeDescription: z.number().optional(),
 		venuesAfterImages: z.number().optional(),
 		trailingImages: z.number().optional(),
+		imagesAfterPhotography: z.number().optional(),
 		venueBeforeImages: z.boolean().optional(),
 		descriptionBeforeVenue: z.boolean().optional(),
 		descriptionBeforeImages: z.boolean().optional(),
