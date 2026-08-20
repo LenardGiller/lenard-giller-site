@@ -1,5 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro";
----
+import { getCollection } from "astro:content";
 
-<Layout title="Works — Lenard Giller" active="works" />
+const works = (await getCollection("works")).sort((a, b) => a.data.order - b.data.order);
+const firstWork = works[0];
+
+return Astro.redirect(`/works/${firstWork.id}/`);
+---
