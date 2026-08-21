@@ -55,14 +55,10 @@ a:hover {
 
 .sidebar .email {
 	display: block;
-	text-decoration: none;
+	margin: 0;
 	font-size: var(--base-size);
 	line-height: var(--base-line);
 	white-space: nowrap;
-}
-
-.sidebar .email:hover {
-	color: var(--muted);
 }
 
 .sidebar nav {
