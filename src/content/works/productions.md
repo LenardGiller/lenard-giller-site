@@ -3,7 +3,7 @@ title: Productions
 order: 13
 year: "2022"
 medium: 16mm film, color, silent, 2910 ft
-imagesBeforeInfo: 5
+imagesBeforeInfo: 2
 venuesAfterImages: 1
 venues:
   - exhibitionTitle: You Probably Have Everything You Need to Browse This Site
