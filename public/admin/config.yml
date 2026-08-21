@@ -1,0 +1,70 @@
+backend:
+  name: github
+  repo: LenardGiller/lenard-giller-site
+  branch: main
+  base_url: https://lenard-giller-cms-auth.lenard-giller.workers.dev
+
+media_folder: src/assets/works
+public_folder: /src/assets/works
+
+collections:
+  - name: works
+    label: Works
+    label_singular: Work
+    folder: src/content/works
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    media_folder: "/src/assets/works/{{slug}}"
+    public_folder: "/src/assets/works/{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Order, name: order, widget: number, value_type: int }
+      - { label: Year, name: year, widget: string, hint: "e.g. 2025, or leave blank if folded into Medium" }
+      - { label: Medium, name: medium, widget: string, required: false }
+      - { label: Catalogue, name: catalogue, widget: string, required: false }
+      - { label: Photography (credit line), name: photography, widget: string, required: false }
+      - { label: Hide top year/medium line, name: hideTopYear, widget: boolean, required: false }
+      - { label: Venue before images, name: venueBeforeImages, widget: boolean, required: false }
+      - { label: Description before venue, name: descriptionBeforeVenue, widget: boolean, required: false }
+      - { label: Description before images, name: descriptionBeforeImages, widget: boolean, required: false }
+      - { label: Images before info block, name: imagesBeforeInfo, widget: number, value_type: int, required: false, hint: "How many lead images render before the venue/meta block" }
+      - { label: Images before description, name: imagesBeforeDescription, widget: number, value_type: int, required: false }
+      - { label: Trailing images, name: trailingImages, widget: number, value_type: int, required: false, hint: "Images that render near the end, before the photography credit" }
+      - { label: Images after photography credit, name: imagesAfterPhotography, widget: number, value_type: int, required: false }
+      - { label: Venues after images, name: venuesAfterImages, widget: number, value_type: int, required: false, hint: "Splits Venues below into a main group (before images) and a trailing group (after images)" }
+      - name: venues
+        label: Venues
+        widget: list
+        required: false
+        fields:
+          - { label: Exhibition title, name: exhibitionTitle, widget: string, required: false }
+          - { label: Venue, name: venue, widget: string }
+          - { label: Dates, name: dates, widget: string, required: false }
+          - { label: Curator, name: curator, widget: string, required: false }
+          - { label: Photography (this venue only), name: photography, widget: string, required: false }
+          - name: participatingArtists
+            label: Participating Artists
+            widget: list
+            required: false
+            field: { label: Artist, name: artist, widget: string }
+      - name: press
+        label: Press
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+      - { label: Body (description text), name: body, widget: markdown }
+
+  - name: bibliography
+    label: Bibliography
+    label_singular: Citation
+    folder: src/content/bibliography
+    create: true
+    delete: true
+    slug: "{{order}}"
+    fields:
+      - { label: Year, name: year, widget: number, value_type: int }
+      - { label: Order, name: order, widget: number, value_type: int, hint: "Controls display order on the page (lower = earlier)" }
+      - { label: Citation text, name: body, widget: markdown, hint: "Use the link tool to make outlet names clickable" }
