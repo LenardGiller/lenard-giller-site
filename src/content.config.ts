@@ -33,4 +33,12 @@ const works = defineCollection({
 	}),
 });
 
-export const collections = { works };
+const bibliography = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/bibliography" }),
+	schema: z.object({
+		year: z.number(),
+		order: z.number(),
+	}),
+});
+
+export const collections = { works, bibliography };

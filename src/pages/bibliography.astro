@@ -1,31 +1,28 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getCollection, render } from "astro:content";
+
+const entries = await getCollection("bibliography");
+entries.sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(
+	entries.map(async (entry) => ({
+		year: entry.data.year,
+		Content: (await render(entry)).Content,
+	})),
+);
 ---
 
 <Layout title="Bibliography — Lenard Giller" active="bibliography">
 	<section class="cv">
 		<div class="group">
-			<p>2025 <a href="https://www.e-flux.com/criticism/6782338/paris-roundup">e-flux Criticism</a>. Paris roundup, Words by Orit Gat (online)</p>
-			<p>2025 <a href="https://www.frieze.com/article/critics-guide-paris-2025">Frieze</a>. The Best Shows to See in Paris, Words by Anya Harrison (online)</p>
-			<p>2025 <a href="https://www.moussemagazine.it/magazine/lenard-giller-petrine-paris-2025/">Mousse Magazine</a>. 'sediment' at Petrine, Paris (online)</p>
-			<p>2025 <a href="https://www.artnewspaper.fr/2025/11/07/portiere-de-voiture-bambous-peints-et-depecage-dun-arbre">The Art Newspaper</a>. Portière de voiture, bambous peints et dépeçage d'un arbre, Words by Patrick Javault (online)</p>
-			<p>2025 <a href="https://artviewer.org/lenard-giller-at-petrine-paris/">Art Viewer</a>. Lenard Giller at Petrine, Paris, Words by Caroline Elbaor (online)</p>
-			<p>2025 <a href="https://flash---art.com/article/reality-breaks-the-frame-lenard-giller-%EF%BF%BC/">Flash Art</a>. Issue 352, Reality Breaks the Frame, Words by Matthew Lawson Garrett (magazine)</p>
-			<p>2025 <a href="https://curamagazine.com/digital/lenard-giller/">CURA</a>. Issue 44, The Generational Issue, Words by Maya Tounta (magazine)</p>
-			<p>2025 action at a distance, published with Petrine, (artist book)</p>
-			<p>2025 Arcane Magazine. Issue 3, insert curated by Ben Broome (magazine)</p>
-			<p>2025 Post Scriptum. A museum forgotten by heart, published by MACRO & <a href="https://www.neroeditions.com/product/post-scriptum-a-museum-forgotten-by-heart-alassan-diawara/">NERO</a> (catalog)</p>
-			<p>2025 <a href="https://www.moussemagazine.it/magazine/post-scriptum-un-museo-dimenticato-a-memoria-post-scriptum-a-museum-forgotten-by-heart-luca-lo-pintos-trajectory-macro-museum-of-contemporary-art-of-rome-2025/">Mousse Magazine</a> words by Carlo Antonelli - 'Post Scriptum. A Museum Forgotten by Heart', Group Show (online)</p>
-			<p>2024 <a href="https://www.emergentmag.com/interviews/lenard-giller-and-maria-toumazou">émergent magazine</a>. In Conversation with Lenard Giller and Maria Toumazou, Words by Robert Frost (online)</p>
-			<p>2024 <a href="https://www.emergentmag.com/exhibitions/the-hill-is-getting-lower-or-so-it-seems-at-sweetwater">émergent magazine</a> - 'The hill is getting lower. Or so it seems.', Group Show (online)</p>
-			<p>2024 <a href="https://artviewer.org/the-uncanny-house-at-casa-di-goethe-museum/">Art Viewer</a>. The Uncanny House at Casa di Goethe Museum, Group Show (online)</p>
-			<p>2024 <a href="https://curamagazine.com/exhibitions/the-uncanny-house/">CURA</a>. The Uncanny House, Casa di Goethe Museum, Rome, Group Show (online)</p>
-			<p>2024 The Uncanny House, published by <a href="https://www.lespressesdureel.com/EN/ouvrage.php?id=11575&amp;menu=0">CURA & Sorry Press®</a> (catalog)</p>
-			<p>2023 <a href="https://curamagazine.com/digital/revisions/">CURA</a>. Ben Broome in conversation with Lenard Giller - Revisions, The Shop at Sadie Coles HQ (online)</p>
-			<p>2023 <a href="https://www.moussemagazine.it/magazine/stay-hungry-ermes-ermes-rome-2023">Mousse Magazine</a> - 'Stay Hungry', Group Show (online)</p>
-			<p>2023 <a href="https://www.artribune.com/mostre-evento-arte/stay-hungry/">Artribune</a> - 'Stay Hungry', Group Show (online)</p>
-			<p>2023 Kaleidoscope Issue 43, New Art:London FW23 (magazine)</p>
-			<p>2022 Productions, published with Veii, Rome, Italy, Words by Ted Targett (artist book)</p>
+			{
+				rendered.map(({ year, Content }) => (
+					<div class="bib-entry">
+						<span class="year">{year}</span>
+						<Content />
+					</div>
+				))
+			}
 		</div>
 	</section>
 </Layout>

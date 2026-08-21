@@ -109,6 +109,15 @@ a:hover {
 	margin: 0;
 }
 
+.bib-entry {
+	display: flex;
+	gap: 0.35em;
+}
+
+.bib-entry .year {
+	flex: none;
+}
+
 .cv .label {
 	margin-bottom: 0;
 }
