@@ -5,7 +5,7 @@ interface Venue {
 	dates?: string;
 	curator?: string;
 	photography?: string;
-	participatingArtists?: string[];
+	participatingArtists?: string;
 }
 
 interface Press {
@@ -38,13 +38,8 @@ const { venues, catalogue, press } = Astro.props;
 					{v.photography ? "." : ""}
 				</p>
 			)}
-			{v.participatingArtists && (
-				<p class="artists">
-					Participating Artists:
-					{v.participatingArtists.length > 0
-						? ` ${v.participatingArtists.join(", ")}.`
-						: ""}
-				</p>
+			{v.participatingArtists && v.participatingArtists.trim().length > 0 && (
+				<p class="artists">Participating Artists: {v.participatingArtists}.</p>
 			)}
 		</div>
 	))

@@ -19,40 +19,7 @@ venues:
     venue: MACRO — Museum of Contemporary Art of Rome
     dates: "2025"
     curator: Luca Lo Pinto
-    participatingArtists:
-      - Tolia Astakhishvili (featuring Thea Djordjadze, Heike Gallmeier, Dylan Peirce)
-      - Absalon
-      - Vincenzo Agnetti
-      - Maurizio Altieri
-      - Alex Bag
-      - Beatrice Bonino
-      - Victor Cavallo
-      - Francesca Cefis
-      - Alassan Diawara
-      - Buck Ellison
-      - Luciano Fabro
-      - Hamishi Farah
-      - Simone Forti
-      - Pippa Garner
-      - Alberto Garutti
-      - Isa Genzken
-      - Lenard Giller
-      - Felix Gonzalez-Torres
-      - Adam Gordon
-      - Pierre Guyotat
-      - Sohrab Hura
-      - Thomas Hutton
-      - Allan Kaprow
-      - KUKII (aka Lafawndah)
-      - Rosemary Mayer
-      - Sandra Mujinga
-      - Charlemagne Palestine
-      - Paolo Pallucco & Mireille Rivier
-      - Lorenzo Silvestri
-      - Diane Simpson
-      - Lukas Wassmann
-      - Gillian Wearing
-      - Issy Wood
+    participatingArtists: Tolia Astakhishvili (featuring Thea Djordjadze, Heike Gallmeier, Dylan Peirce), Absalon, Vincenzo Agnetti, Maurizio Altieri, Alex Bag, Beatrice Bonino, Victor Cavallo, Francesca Cefis, Alassan Diawara, Buck Ellison, Luciano Fabro, Hamishi Farah, Simone Forti, Pippa Garner, Alberto Garutti, Isa Genzken, Lenard Giller, Felix Gonzalez-Torres, Adam Gordon, Pierre Guyotat, Sohrab Hura, Thomas Hutton, Allan Kaprow, KUKII (aka Lafawndah), Rosemary Mayer, Sandra Mujinga, Charlemagne Palestine, Paolo Pallucco & Mireille Rivier, Lorenzo Silvestri, Diane Simpson, Lukas Wassmann, Gillian Wearing, Issy Wood
 ---
 action at a distance is a 5 channel audio system, a hybrid between a field recording and a series of musical compositions that will be inserted at different times throughout the duration of the exhibition, creating an open-ended score.
 

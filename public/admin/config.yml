@@ -48,11 +48,7 @@ collections:
           - { label: Dates, name: dates, widget: string, required: false }
           - { label: Curator, name: curator, widget: string, required: false }
           - { label: Photography (this venue only), name: photography, widget: string, required: false }
-          - name: participatingArtists
-            label: Participating Artists
-            widget: list
-            required: false
-            field: { label: Artist, name: artist, widget: string }
+          - { label: Participating Artists, name: participatingArtists, widget: text, required: false, hint: "Paste names separated by commas, e.g. Name One, Name Two, Name Three" }
       - name: press
         label: Press
         widget: list

@@ -7,7 +7,7 @@ const venue = z.object({
 	dates: z.string().optional(),
 	curator: z.string().optional(),
 	photography: z.string().optional(),
-	participatingArtists: z.array(z.string()).optional(),
+	participatingArtists: z.string().optional(),
 });
 
 const works = defineCollection({

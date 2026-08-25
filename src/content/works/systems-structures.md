@@ -19,12 +19,5 @@ venues:
   - exhibitionTitle: Constellations Warsaw
     venue: Galeria Wschód, Brunette Coleman and Petrine
     dates: "2025"
-    participatingArtists:
-      - Antonia Brown
-      - Jacky Connolly
-      - Kamil Dossar
-      - Nat Faulkner
-      - Lenard Giller
-      - Erasmia Kadinopoulou
-      - Miriam Stoney
+    participatingArtists: Antonia Brown, Jacky Connolly, Kamil Dossar, Nat Faulkner, Lenard Giller, Erasmia Kadinopoulou, Miriam Stoney
 ---
