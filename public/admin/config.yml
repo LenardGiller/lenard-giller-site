@@ -21,6 +21,11 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Order, name: order, widget: number, value_type: int }
       - { label: Year, name: year, widget: string, hint: "e.g. 2025, or leave blank if folded into Medium" }
+      - name: images
+        label: Images
+        widget: list
+        summary: "{{fields.image}}"
+        field: { name: image, label: Image, widget: image }
       - { label: Medium, name: medium, widget: string, required: false }
       - { label: Catalogue, name: catalogue, widget: string, required: false }
       - { label: Photography (credit line), name: photography, widget: string, required: false }

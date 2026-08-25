@@ -2,6 +2,15 @@
 title: action at a distance
 order: 4
 year: "2025"
+images:
+  - 001_action-at-a-distance-lenard-giller.jpg
+  - 002_action-at-a-distance-lenard-giller.jpg
+  - 003_action-at-a-distance-lenard-giller.jpg
+  - 004_action-at-a-distance-lenard-giller.jpg
+  - 005_action-at-a-distance-lenard-giller.jpg
+  - 006_action-at-a-distance-lenard-giller.jpg
+  - 007_action-at-a-distance-lenard-giller.jpg
+  - 008_action-at-a-distance-lenard-giller.jpg
 medium: 5-channel digital audio system
 descriptionBeforeImages: true
 photography: Daniele Molajoli

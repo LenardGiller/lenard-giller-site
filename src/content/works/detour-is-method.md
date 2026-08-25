@@ -2,6 +2,8 @@
 title: Detour is method
 order: 6
 year: "2024"
+images:
+  - 001_detour-is-method-lenard-giller.jpg
 imagesBeforeInfo: 1
 venueBeforeImages: true
 hideTopYear: true

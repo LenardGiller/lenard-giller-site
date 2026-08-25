@@ -2,6 +2,13 @@
 title: dreamworks
 order: 12
 year: "2022"
+images:
+  - 002_dreamworks-lenard-giller.jpg
+  - 003_dreamworks-lenard-giller.jpg
+  - 004_dreamworks-lenard-giller.jpg
+  - 030_dreamworks-lenard-giller.jpg
+  - 031_dreamworks-lenard-giller.jpg
+  - 032_dreamworks-lenard-giller.jpg
 medium: 35mm film, color, silent, 400 ft
 imagesBeforeInfo: 3
 venues:

@@ -2,6 +2,12 @@
 title: Actors
 order: 10
 year: "2023"
+images:
+  - 001_actors-lenard-giller.jpg
+  - 002_actors-lenard-giller.jpg
+  - 003_actors-lenard-giller.jpg
+  - 004_actors-lenard-giller.jpg
+  - 005_actors-lenard-giller.jpg
 medium: 16mm film, color, 71.9 ft
 imagesBeforeInfo: 1
 venuesAfterImages: 1

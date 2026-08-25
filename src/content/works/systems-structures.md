@@ -2,6 +2,11 @@
 title: systems/structures
 order: 5
 year: "2024"
+images:
+  - 001_systems-structures-lenard-giller.jpg
+  - 006_systems-structures-lenard-giller.jpg
+  - 007_systems-structures-lenard-giller.jpg
+  - 008_systems-structures-lenard-giller.jpg
 medium: digital video transferred from silent 16mm film, color, silent, 107.8 ft
 imagesBeforeInfo: 1
 venuesAfterImages: 1

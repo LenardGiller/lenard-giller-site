@@ -2,6 +2,18 @@
 title: sediment
 order: 1
 year: "2025"
+images:
+  - 001_sediment-lenard-giller.jpg
+  - 002_sediment-lenard-giller.jpg
+  - 003_sediment-lenard-giller.jpg
+  - 004_sediment-lenard-giller.jpg
+  - 005_sediment-lenard-giller.jpg
+  - 006_sediment-lenard-giller.jpg
+  - 007_sediment-lenard-giller.jpg
+  - 018_sediment-lenard-giller.jpg
+  - 019_sediment-lenard-giller.jpg
+  - 020_sediment-lenard-giller.jpg
+  - 021_sediment-lenard-giller.jpg
 imagesBeforeInfo: 1
 venueBeforeImages: true
 hideTopYear: true

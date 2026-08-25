@@ -20,10 +20,18 @@ const allImages = import.meta.glob("/src/assets/works/*/*.{jpg,avif}", {
 	eager: true,
 }) as Record<string, { default: ImageMetadata }>;
 
-const images = Object.entries(allImages)
-	.filter(([path]) => path.includes(`/works/${work.id}/`))
-	.sort(([a], [b]) => a.localeCompare(b))
-	.map(([, mod]) => mod.default);
+// Image order is explicit via the `images` frontmatter field (filenames within
+// this work's asset folder), rather than auto-discovered from the folder.
+const images = data.images.map((filename) => {
+	const path = `/src/assets/works/${work.id}/${filename}`;
+	const mod = allImages[path];
+
+	if (!mod) {
+		throw new Error(`Image not found for "${work.id}": ${filename}`);
+	}
+
+	return mod.default;
+});
 
 const hasExtendedInfo =
 	(data.venues?.length ?? 0) > 1 ||

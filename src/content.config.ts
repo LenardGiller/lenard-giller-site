@@ -16,6 +16,7 @@ const works = defineCollection({
 		title: z.string(),
 		order: z.number(),
 		year: z.string(),
+		images: z.array(z.string()),
 		medium: z.string().optional(),
 		catalogue: z.string().optional(),
 		photography: z.string().optional(),
