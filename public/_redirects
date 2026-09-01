@@ -1,7 +1,10 @@
-# Instant edge redirect to whichever project is currently newest
+# Instant edge redirects to whichever project is currently first
 # (lowest `order` value in src/content/works/*.md — currently sediment).
 # If you reorder projects so a different one is first, update the
-# target here too. src/pages/works/index.astro redirects the same
-# way automatically as a fallback, just without the instant edge hop.
+# target here too. The matching src/pages/*.astro files redirect the
+# same way automatically as a fallback (a client-side meta-refresh),
+# just without the instant edge hop — that fallback has a visible
+# 2-second delay, so this file is what actually makes it instant.
+/ /works/sediment/ 302
 /works /works/sediment/ 302
 /works/ /works/sediment/ 302
