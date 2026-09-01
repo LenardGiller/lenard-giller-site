@@ -152,8 +152,10 @@ a:hover {
 }
 
 .back-to-top {
-	display: block;
-	margin-top: var(--base-line);
+	position: fixed;
+	top: 50%;
+	right: 48px;
+	transform: translateY(-50%);
 	font-size: var(--base-size);
 	color: var(--fg);
 }
@@ -239,5 +241,12 @@ a:hover {
 
 	.content {
 		padding: 8px 24px 64px;
+	}
+
+	.back-to-top {
+		top: auto;
+		right: 16px;
+		bottom: 16px;
+		transform: none;
 	}
 }
