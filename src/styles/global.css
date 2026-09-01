@@ -154,7 +154,11 @@ a:hover {
 .back-to-top {
 	position: fixed;
 	top: 50%;
-	right: 48px;
+	/* Anchored to the content column's own right edge (sidebar width + the
+	   900px image/text column), not the browser window edge — otherwise it
+	   ends up stranded far from the content on a wide window. Clamped so it
+	   can't run off-screen on narrower desktop widths. */
+	left: min(calc(var(--nav-width) + 900px + 40px), calc(100vw - 110px));
 	transform: translateY(-50%);
 	font-size: var(--base-size);
 	color: var(--fg);
@@ -245,6 +249,7 @@ a:hover {
 
 	.back-to-top {
 		top: auto;
+		left: auto;
 		right: 16px;
 		bottom: 16px;
 		transform: none;
