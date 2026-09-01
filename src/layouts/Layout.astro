@@ -66,5 +66,43 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				<slot />
 			</main>
 		</div>
+		<script>
+			// As the visitor scrolls through the continuous feed of works, keep the
+			// sidebar's current-page indicator in sync with whichever work is
+			// actually in view, instead of only reflecting the URL.
+			const sections = document.querySelectorAll<HTMLElement>("[data-work-slug]");
+
+			if (sections.length > 0) {
+				const links = document.querySelectorAll<HTMLAnchorElement>(".works-sublist a");
+				const linkBySlug = new Map<string, HTMLAnchorElement>();
+
+				links.forEach((link) => {
+					const match = link.getAttribute("href")?.match(/^\/works\/([^/]+)\/?$/);
+					if (match) linkBySlug.set(match[1], link);
+				});
+
+				const setActive = (slug: string) => {
+					links.forEach((link) => link.removeAttribute("aria-current"));
+					linkBySlug.get(slug)?.setAttribute("aria-current", "page");
+				};
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								const slug = (entry.target as HTMLElement).dataset.workSlug;
+								if (slug) setActive(slug);
+							}
+						}
+					},
+					// A thin horizontal band just above the vertical center of the
+					// viewport; a work becomes "current" the moment its section
+					// crosses that line while scrolling.
+					{ rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+				);
+
+				sections.forEach((section) => observer.observe(section));
+			}
+		</script>
 	</body>
 </html>

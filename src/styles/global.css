@@ -142,6 +142,15 @@ a:hover {
 	color: var(--muted);
 }
 
+.work-feed {
+	display: flex;
+	flex-direction: column;
+}
+
+.work-feed .work:not(:first-child) {
+	margin-top: 80px;
+}
+
 .work h1 {
 	font-size: var(--base-size);
 	font-weight: 700;

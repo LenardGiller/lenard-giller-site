@@ -1,8 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import VenueInfo from "../../components/VenueInfo.astro";
-import { getCollection, render } from "astro:content";
-import { Image, getImage } from "astro:assets";
+import WorkContent from "../../components/WorkContent.astro";
+import { getCollection } from "astro:content";
+import { getImage } from "astro:assets";
 
 export async function getStaticPaths() {
 	const works = await getCollection("works");
@@ -14,52 +14,20 @@ export async function getStaticPaths() {
 
 const { work } = Astro.props;
 const { data } = work;
-const { Content } = await render(work);
+
+const allWorks = (await getCollection("works")).sort((a, b) => a.data.order - b.data.order);
+const currentIndex = allWorks.findIndex((w) => w.id === work.id);
+// This page's continuous scroll starts at the current work and runs through
+// every work after it, in order — so /works/sediment/ shows everything,
+// while /works/productions/ (the last one) shows just itself.
+const worksFromHere = allWorks.slice(currentIndex);
 
 const allImages = import.meta.glob("/src/assets/works/*/*.{jpg,avif}", {
 	eager: true,
 }) as Record<string, { default: ImageMetadata }>;
 
-// Image order is explicit via the `images` frontmatter field (filenames within
-// this work's asset folder), rather than auto-discovered from the folder.
-const images = data.images.map((filename) => {
-	const path = `/src/assets/works/${work.id}/${filename}`;
-	const mod = allImages[path];
-
-	if (!mod) {
-		throw new Error(`Image not found for "${work.id}": ${filename}`);
-	}
-
-	return mod.default;
-});
-
-const hasExtendedInfo =
-	(data.venues?.length ?? 0) > 1 ||
-	(data.venues?.some((v) => (v.participatingArtists?.length ?? 0) > 0) ?? false) ||
-	data.imagesBeforeInfo !== undefined ||
-	data.venuesAfterImages !== undefined;
-
-const splitIndex = data.imagesBeforeInfo ?? 1;
-const trailingImageCount = data.trailingImages ?? 0;
-const midImageCount = data.imagesBeforeDescription ?? 0;
-const leadImages = images.slice(0, splitIndex);
-const midImages = images.slice(splitIndex, splitIndex + midImageCount);
-const restImages = images.slice(
-	splitIndex + midImageCount,
-	trailingImageCount > 0 ? -trailingImageCount : undefined,
-);
-const finalImages = trailingImageCount > 0 ? images.slice(-trailingImageCount) : [];
-
-const venuesAfterImages = data.venuesAfterImages ?? 0;
-const allVenues = data.venues ?? [];
-const mainVenues = venuesAfterImages > 0 ? allVenues.slice(0, -venuesAfterImages) : allVenues;
-const trailingVenues = venuesAfterImages > 0 ? allVenues.slice(-venuesAfterImages) : [];
-const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
-
-// images to render after the "Photography by ..." credit line (simple layout only)
-const afterPhotographyCount = data.imagesAfterPhotography ?? 0;
-const mainImages = afterPhotographyCount > 0 ? images.slice(0, -afterPhotographyCount) : images;
-const afterPhotographyImages = afterPhotographyCount > 0 ? images.slice(-afterPhotographyCount) : [];
+const leadImagePath = data.images[0] && `/src/assets/works/${work.id}/${data.images[0]}`;
+const leadImage = leadImagePath ? allImages[leadImagePath]?.default : undefined;
 
 // Raw, unformatted meta description: literally the page's own content, in the
 // order it actually appears on the page (title, medium/year, venue, body text),
@@ -72,6 +40,9 @@ if (!data.hideTopYear) {
 	if (medYear) descriptionLines.push(medYear);
 }
 
+const venuesAfterImages = data.venuesAfterImages ?? 0;
+const allVenues = data.venues ?? [];
+const mainVenues = venuesAfterImages > 0 ? allVenues.slice(0, -venuesAfterImages) : allVenues;
 const firstVenue = mainVenues[0];
 if (firstVenue) {
 	if (firstVenue.exhibitionTitle) descriptionLines.push(firstVenue.exhibitionTitle);
@@ -92,8 +63,8 @@ const rawDescription = descriptionLines.join("\n");
 const description =
 	rawDescription.length > 300 ? rawDescription.slice(0, 300) : rawDescription;
 
-const ogImage = images[0]
-	? await getImage({ src: images[0], width: 1200, format: "jpg", quality: 80 })
+const ogImage = leadImage
+	? await getImage({ src: leadImage, width: 1200, format: "jpg", quality: 80 })
 	: undefined;
 ---
 
@@ -104,142 +75,9 @@ const ogImage = images[0]
 	active="works"
 	currentWorkSlug={work.id}
 >
-	<article class="work">
-		<h1><em>{data.title}</em></h1>
-
-		{
-			hasExtendedInfo ? (
-				<>
-					<div class={`meta${data.venueBeforeImages && data.descriptionBeforeImages ? " meta--tight" : ""}`}>
-						{!data.hideTopYear && (
-							<p>{[data.medium, data.year].filter(Boolean).join(". ")}</p>
-						)}
-						{data.venueBeforeImages && (
-							<VenueInfo venues={mainVenues} catalogue={data.catalogue} press={data.press} />
-						)}
-					</div>
-
-					{data.descriptionBeforeImages && (
-						<div class={`description${data.venueBeforeImages ? " description--tight" : ""}`}>
-							<Content />
-						</div>
-					)}
-
-					{leadImages.length > 0 && (
-						<div class="images">
-							{leadImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-
-					{!data.venueBeforeImages && !data.descriptionBeforeVenue && mainVenues.length > 0 && (
-						<div class="meta">
-							<VenueInfo
-								venues={mainVenues}
-								catalogue={catalogueWithMain ? data.catalogue : undefined}
-								press={data.press}
-							/>
-						</div>
-					)}
-
-					{midImages.length > 0 && (
-						<div class="images">
-							{midImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-
-					{!data.descriptionBeforeImages && (
-						<div class="description">
-							<Content />
-						</div>
-					)}
-
-					{!data.venueBeforeImages && data.descriptionBeforeVenue && mainVenues.length > 0 && (
-						<div class="meta">
-							<VenueInfo
-								venues={mainVenues}
-								catalogue={catalogueWithMain ? data.catalogue : undefined}
-								press={data.press}
-							/>
-						</div>
-					)}
-
-					{restImages.length > 0 && (
-						<div class="images">
-							{restImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-
-					{trailingVenues.length > 0 && (
-						<div class="meta">
-							<VenueInfo
-								venues={trailingVenues}
-								catalogue={!catalogueWithMain ? data.catalogue : undefined}
-							/>
-						</div>
-					)}
-
-					{finalImages.length > 0 && (
-						<div class="images">
-							{finalImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-
-					{data.photography !== undefined && (
-						<div class="meta">
-							<p>
-								Photography by {data.photography}
-								{data.photography ? "." : ""}
-							</p>
-						</div>
-					)}
-				</>
-			) : (
-				<>
-					<div class="meta">
-						{!data.hideTopYear && (
-							<p>{[data.medium, data.year].filter(Boolean).join(". ")}</p>
-						)}
-						<VenueInfo venues={data.venues} catalogue={data.catalogue} press={data.press} />
-					</div>
-
-					<div class="description">
-						<Content />
-					</div>
-
-					{mainImages.length > 0 && (
-						<div class="images">
-							{mainImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-
-					{data.photography !== undefined && (
-						<div class="meta">
-							<p>
-								Photography by {data.photography}
-								{data.photography ? "." : ""}
-							</p>
-						</div>
-					)}
-
-					{afterPhotographyImages.length > 0 && (
-						<div class="images">
-							{afterPhotographyImages.map((img) => (
-								<Image src={img} alt={data.title} width={2000} quality={90} />
-							))}
-						</div>
-					)}
-				</>
-			)
-		}
-	</article>
+	<div class="work-feed">
+		{worksFromHere.map((w) => (
+			<WorkContent work={w} />
+		))}
+	</div>
 </Layout>
