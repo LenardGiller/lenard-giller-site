@@ -5,17 +5,14 @@ import { getCollection } from "astro:content";
 interface Props {
 	title: string;
 	description?: string;
-	active: "home" | "works" | "bibliography" | "contacts";
+	active: "works" | "bibliography" | "contacts";
 	currentWorkSlug?: string;
 	image?: string;
 }
 
 const { title, description, active, currentWorkSlug, image } = Astro.props;
 
-const works =
-	active === "works"
-		? (await getCollection("works")).sort((a, b) => a.data.order - b.data.order)
-		: [];
+const works = (await getCollection("works")).sort((a, b) => a.data.order - b.data.order);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
@@ -47,28 +44,16 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 			<div class="sidebar">
 				<p class="email">lenard.giller(at)gmail.com</p>
 				<nav>
-					<a href="/" aria-current={active === "home" ? "page" : undefined}>
-						home
-					</a>
-					<a
-						id="works-link"
-						href="/works"
-						aria-current={active === "works" && !currentWorkSlug ? "page" : undefined}
-					>
-						works
-					</a>
-					{active === "works" && (
-						<div class="works-sublist">
-							{works.map((work) => (
-								<a
-									href={`/works/${work.id}/`}
-									aria-current={work.id === currentWorkSlug ? "page" : undefined}
-								>
-									{work.data.title}
-								</a>
-							))}
-						</div>
-					)}
+					<div class="works-sublist">
+						{works.map((work) => (
+							<a
+								href={`/works/${work.id}/`}
+								aria-current={work.id === currentWorkSlug ? "page" : undefined}
+							>
+								{work.data.title}
+							</a>
+						))}
+					</div>
 					<a href="/bibliography" aria-current={active === "bibliography" ? "page" : undefined}>
 						bibliography
 					</a>
@@ -81,16 +66,5 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				<slot />
 			</main>
 		</div>
-		<script>
-			const worksLink = document.getElementById("works-link");
-			const sublist = document.querySelector<HTMLElement>(".works-sublist");
-
-			if (worksLink && sublist) {
-				worksLink.addEventListener("click", (event) => {
-					event.preventDefault();
-					sublist.style.display = sublist.style.display === "none" ? "" : "none";
-				});
-			}
-		</script>
 	</body>
 </html>
