@@ -137,9 +137,13 @@ a:hover {
 	text-transform: lowercase;
 }
 
-.works-sublist a:hover,
-.works-sublist a[aria-current="page"] {
+.works-sublist a:hover {
 	color: var(--muted);
+}
+
+.works-sublist a[aria-current="page"] {
+	background-color: Highlight;
+	color: var(--fg);
 }
 
 .work-feed {
