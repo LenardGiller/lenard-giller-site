@@ -144,6 +144,7 @@ a:hover {
 
 .works-sublist a[aria-current="page"] {
 	font-weight: 700;
+	font-size: 10px;
 }
 
 .work-feed {
