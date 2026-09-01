@@ -182,7 +182,7 @@ a:hover {
 }
 
 .work h1 {
-	font-size: var(--base-size);
+	font-size: 10px;
 	font-weight: 700;
 	font-style: italic;
 	margin: 0;
