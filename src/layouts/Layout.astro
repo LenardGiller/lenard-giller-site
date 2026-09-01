@@ -5,17 +5,14 @@ import { getCollection } from "astro:content";
 interface Props {
 	title: string;
 	description?: string;
-	active: "home" | "works" | "bibliography" | "contacts";
+	active: "works" | "bibliography" | "contacts";
 	currentWorkSlug?: string;
 	image?: string;
 }
 
 const { title, description, active, currentWorkSlug, image } = Astro.props;
 
-const works =
-	active === "works"
-		? (await getCollection("works")).sort((a, b) => a.data.order - b.data.order)
-		: [];
+const works = (await getCollection("works")).sort((a, b) => a.data.order - b.data.order);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
@@ -42,33 +39,21 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 		{description && <meta name="twitter:description" content={description} />}
 		<meta name="twitter:image" content={ogImageURL} />
 	</head>
-	<body>
+	<body id="top">
 		<div class="site">
 			<div class="sidebar">
 				<p class="email">lenard.giller(at)gmail.com</p>
 				<nav>
-					<a href="/" aria-current={active === "home" ? "page" : undefined}>
-						home
-					</a>
-					<a
-						id="works-link"
-						href="/works"
-						aria-current={active === "works" && !currentWorkSlug ? "page" : undefined}
-					>
-						works
-					</a>
-					{active === "works" && (
-						<div class="works-sublist">
-							{works.map((work) => (
-								<a
-									href={`/works/${work.id}/`}
-									aria-current={work.id === currentWorkSlug ? "page" : undefined}
-								>
-									{work.data.title}
-								</a>
-							))}
-						</div>
-					)}
+					<div class="works-sublist">
+						{works.map((work) => (
+							<a
+								href={`/works/${work.id}/`}
+								aria-current={work.id === currentWorkSlug ? "page" : undefined}
+							>
+								{work.data.title}
+							</a>
+						))}
+					</div>
 					<a href="/bibliography" aria-current={active === "bibliography" ? "page" : undefined}>
 						bibliography
 					</a>
@@ -77,20 +62,75 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 					</a>
 				</nav>
 			</div>
-			<main class="content">
+			<main class="content" data-landing-slug={currentWorkSlug}>
 				<slot />
 			</main>
 		</div>
+		{active === "works" && <a href="#top" class="back-to-top">Back to Top</a>}
 		<script>
-			const worksLink = document.getElementById("works-link");
-			const sublist = document.querySelector<HTMLElement>(".works-sublist");
-
-			if (worksLink && sublist) {
-				worksLink.addEventListener("click", (event) => {
-					event.preventDefault();
-					sublist.style.display = sublist.style.display === "none" ? "" : "none";
-				});
+			// Every /works/<slug>/ page renders the full feed of all works, so that
+			// scrolling up from wherever you land always works — this just jumps
+			// straight to the work this particular URL is "for" on load, same as
+			// an anchor link would, before the scrollspy below takes over.
+			if ("scrollRestoration" in history) {
+				history.scrollRestoration = "manual";
 			}
+
+			const landingSlug = document.querySelector<HTMLElement>(".content")?.dataset
+				.landingSlug;
+			const landingSection = landingSlug
+				? document.querySelector<HTMLElement>(`[data-work-slug="${landingSlug}"]`)
+				: undefined;
+
+			landingSection?.scrollIntoView({ block: "start" });
+
+			// As the visitor scrolls through the continuous feed of works, keep the
+			// sidebar's current-page indicator in sync with whichever work is
+			// actually in view, instead of only reflecting the URL.
+			const sections = document.querySelectorAll<HTMLElement>("[data-work-slug]");
+
+			if (sections.length > 0) {
+				const links = document.querySelectorAll<HTMLAnchorElement>(".works-sublist a");
+				const linkBySlug = new Map<string, HTMLAnchorElement>();
+
+				links.forEach((link) => {
+					const match = link.getAttribute("href")?.match(/^\/works\/([^/]+)\/?$/);
+					if (match) linkBySlug.set(match[1], link);
+				});
+
+				const setActive = (slug: string) => {
+					links.forEach((link) => link.removeAttribute("aria-current"));
+					linkBySlug.get(slug)?.setAttribute("aria-current", "page");
+				};
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								const slug = (entry.target as HTMLElement).dataset.workSlug;
+								if (slug) setActive(slug);
+							}
+						}
+					},
+					// A thin horizontal band just above the vertical center of the
+					// viewport; a work becomes "current" the moment its section
+					// crosses that line while scrolling.
+					{ rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+				);
+
+				sections.forEach((section) => observer.observe(section));
+			}
+
+			// "Back to Top": on a page with the continuous works feed, smooth-scroll
+			// back up in place. On bibliography/contact (which aren't part of the
+			// feed) it's a plain link back to the landing page instead, so leave
+			// its normal navigation alone.
+			document.querySelectorAll<HTMLAnchorElement>('.back-to-top[href="#top"]').forEach((link) => {
+				link.addEventListener("click", (event) => {
+					event.preventDefault();
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				});
+			});
 		</script>
 	</body>
 </html>

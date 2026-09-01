@@ -4,8 +4,9 @@
 	--bg: #ffffff;
 	--font: Helvetica, "Helvetica Neue", Arial, sans-serif;
 	--nav-width: 260px;
-	--base-size: 12px;
+	--base-size: 11px;
 	--base-line: 21.6px;
+	--sidebar-size: 11px;
 }
 
 * {
@@ -56,7 +57,7 @@ a:hover {
 .sidebar .email {
 	display: block;
 	margin: 0;
-	font-size: var(--base-size);
+	font-size: var(--sidebar-size);
 	line-height: var(--base-line);
 	white-space: nowrap;
 }
@@ -70,12 +71,16 @@ a:hover {
 .sidebar nav a {
 	text-decoration: none;
 	color: var(--fg);
-	font-size: var(--base-size);
+	font-size: var(--sidebar-size);
 }
 
-.sidebar nav a:hover,
-.sidebar nav a[aria-current="page"] {
+.sidebar nav a:hover {
 	color: var(--muted);
+}
+
+.sidebar nav > a[aria-current="page"] {
+	font-weight: 700;
+	font-size: 10px;
 }
 
 .content {
@@ -126,24 +131,58 @@ a:hover {
 .works-sublist {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 	gap: 6px;
 }
 
 .works-sublist a {
 	text-decoration: none;
 	color: var(--fg);
-	font-size: var(--base-size);
-	font-style: italic;
+	font-size: var(--sidebar-size);
 	text-transform: lowercase;
 }
 
-.works-sublist a:hover,
+.works-sublist a:hover {
+	color: var(--muted);
+}
+
 .works-sublist a[aria-current="page"] {
+	font-weight: 700;
+	font-size: 10px;
+}
+
+.work-feed {
+	display: flex;
+	flex-direction: column;
+}
+
+.work-feed .work {
+	/* When landing directly on a project (scrollIntoView on load, or a
+	   sidebar click), keep its title aligned with the sidebar's own top
+	   padding instead of jumping flush to the very top of the viewport. */
+	scroll-margin-top: 115px;
+}
+
+.work-feed .work:not(:first-child) {
+	margin-top: 80px;
+}
+
+.back-to-top {
+	position: fixed;
+	/* Positioned to match the spot marked on the reference screenshot. */
+	top: 90%;
+	left: 89%;
+	transform: translate(-50%, -50%);
+	font-size: var(--base-size);
+	color: var(--fg);
+}
+
+.back-to-top:hover {
 	color: var(--muted);
 }
 
 .work h1 {
-	font-size: var(--base-size);
+	font-size: 10px;
 	font-weight: 700;
 	font-style: italic;
 	margin: 0;
@@ -219,5 +258,13 @@ a:hover {
 
 	.content {
 		padding: 8px 24px 64px;
+	}
+
+	.back-to-top {
+		top: auto;
+		left: auto;
+		right: 16px;
+		bottom: 16px;
+		transform: none;
 	}
 }
