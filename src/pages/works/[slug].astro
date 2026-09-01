@@ -15,12 +15,11 @@ export async function getStaticPaths() {
 const { work } = Astro.props;
 const { data } = work;
 
+// Every /works/<slug>/ page renders the full feed, all works in order — the
+// only thing that changes between URLs is which one it scrolls to on load
+// (via currentWorkSlug, handled in Layout.astro) and this page's own SEO
+// metadata below. That way scrolling up from any project always works too.
 const allWorks = (await getCollection("works")).sort((a, b) => a.data.order - b.data.order);
-const currentIndex = allWorks.findIndex((w) => w.id === work.id);
-// This page's continuous scroll starts at the current work and runs through
-// every work after it, in order — so /works/sediment/ shows everything,
-// while /works/productions/ (the last one) shows just itself.
-const worksFromHere = allWorks.slice(currentIndex);
 
 const allImages = import.meta.glob("/src/assets/works/*/*.{jpg,avif}", {
 	eager: true,
@@ -76,7 +75,7 @@ const ogImage = leadImage
 	currentWorkSlug={work.id}
 >
 	<div class="work-feed">
-		{worksFromHere.map((w) => (
+		{allWorks.map((w) => (
 			<WorkContent work={w} />
 		))}
 	</div>

@@ -62,11 +62,27 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 					</a>
 				</nav>
 			</div>
-			<main class="content">
+			<main class="content" data-landing-slug={currentWorkSlug}>
 				<slot />
 			</main>
 		</div>
 		<script>
+			// Every /works/<slug>/ page renders the full feed of all works, so that
+			// scrolling up from wherever you land always works — this just jumps
+			// straight to the work this particular URL is "for" on load, same as
+			// an anchor link would, before the scrollspy below takes over.
+			if ("scrollRestoration" in history) {
+				history.scrollRestoration = "manual";
+			}
+
+			const landingSlug = document.querySelector<HTMLElement>(".content")?.dataset
+				.landingSlug;
+			const landingSection = landingSlug
+				? document.querySelector<HTMLElement>(`[data-work-slug="${landingSlug}"]`)
+				: undefined;
+
+			landingSection?.scrollIntoView({ behavior: "instant", block: "start" });
+
 			// As the visitor scrolls through the continuous feed of works, keep the
 			// sidebar's current-page indicator in sync with whichever work is
 			// actually in view, instead of only reflecting the URL.
