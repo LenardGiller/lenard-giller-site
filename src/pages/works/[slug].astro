@@ -62,9 +62,15 @@ const rawDescription = descriptionLines.join("\n");
 const description =
 	rawDescription.length > 300 ? rawDescription.slice(0, 300) : rawDescription;
 
-const ogImage = leadImage
-	? await getImage({ src: leadImage, width: 1200, format: "jpg", quality: 80 })
-	: undefined;
+// sediment is the site's landing page (/ redirects here), so its share
+// image should be the same approved crop used as the sitewide default,
+// not an auto-generated, uncropped version of its own lead photo.
+const ogImage =
+	work.id === "sediment"
+		? undefined
+		: leadImage
+			? await getImage({ src: leadImage, width: 1200, format: "jpg", quality: 80 })
+			: undefined;
 ---
 
 <Layout
