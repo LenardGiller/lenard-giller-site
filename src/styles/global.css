@@ -6,6 +6,7 @@
 	--nav-width: 260px;
 	--base-size: 12px;
 	--base-line: 21.6px;
+	--sidebar-size: 11px;
 }
 
 * {
@@ -56,7 +57,7 @@ a:hover {
 .sidebar .email {
 	display: block;
 	margin: 0;
-	font-size: var(--base-size);
+	font-size: var(--sidebar-size);
 	line-height: var(--base-line);
 	white-space: nowrap;
 }
@@ -70,7 +71,7 @@ a:hover {
 .sidebar nav a {
 	text-decoration: none;
 	color: var(--fg);
-	font-size: var(--base-size);
+	font-size: var(--sidebar-size);
 }
 
 .sidebar nav a:hover,
@@ -133,7 +134,7 @@ a:hover {
 .works-sublist a {
 	text-decoration: none;
 	color: var(--fg);
-	font-size: var(--base-size);
+	font-size: var(--sidebar-size);
 	text-transform: lowercase;
 }
 
