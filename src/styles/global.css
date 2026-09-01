@@ -153,11 +153,9 @@ a:hover {
 
 .back-to-top {
 	position: fixed;
-	/* Positioned to match the exact spot marked on the reference screenshot:
-	   lower-right, well clear of the corner, roughly 80% across and 85% down
-	   the viewport. */
-	top: 85%;
-	left: 80%;
+	/* Positioned to match the spot marked on the reference screenshot. */
+	top: 90%;
+	left: 85%;
 	transform: translate(-50%, -50%);
 	font-size: var(--base-size);
 	color: var(--fg);
