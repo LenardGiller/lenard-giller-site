@@ -74,7 +74,7 @@ a:hover {
 }
 
 .sidebar nav a:hover,
-.sidebar nav a[aria-current="page"] {
+.sidebar nav > a[aria-current="page"] {
 	color: var(--muted);
 }
 
@@ -143,7 +143,7 @@ a:hover {
 }
 
 .works-sublist a[aria-current="page"] {
-	background-color: Highlight;
+	background-color: #b4d7ff;
 	color: var(--fg);
 }
 
