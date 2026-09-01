@@ -39,7 +39,7 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 		{description && <meta name="twitter:description" content={description} />}
 		<meta name="twitter:image" content={ogImageURL} />
 	</head>
-	<body>
+	<body id="top">
 		<div class="site">
 			<div class="sidebar">
 				<p class="email">lenard.giller(at)gmail.com</p>
@@ -66,6 +66,7 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				<slot />
 			</main>
 		</div>
+		<a href="#top" class="back-to-top">Back to Top</a>
 		<script>
 			// Every /works/<slug>/ page renders the full feed of all works, so that
 			// scrolling up from wherever you land always works — this just jumps
@@ -118,6 +119,24 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				);
 
 				sections.forEach((section) => observer.observe(section));
+			}
+
+			// "Back to Top" link: only visible once you've scrolled down a bit,
+			// smooth-scrolls back up when clicked.
+			const backToTop = document.querySelector<HTMLAnchorElement>(".back-to-top");
+
+			if (backToTop) {
+				const toggleVisibility = () => {
+					backToTop.classList.toggle("visible", window.scrollY > window.innerHeight * 0.5);
+				};
+
+				toggleVisibility();
+				window.addEventListener("scroll", toggleVisibility, { passive: true });
+
+				backToTop.addEventListener("click", (event) => {
+					event.preventDefault();
+					window.scrollTo({ top: 0, behavior: "smooth" });
+				});
 			}
 		</script>
 	</body>

@@ -151,6 +151,26 @@ a:hover {
 	margin-top: 80px;
 }
 
+.back-to-top {
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+	font-size: var(--base-size);
+	color: var(--muted);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+}
+
+.back-to-top.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.back-to-top:hover {
+	color: var(--fg);
+}
+
 .work h1 {
 	font-size: var(--base-size);
 	font-weight: 700;
