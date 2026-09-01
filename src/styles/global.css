@@ -138,9 +138,12 @@ a:hover {
 	text-transform: lowercase;
 }
 
-.works-sublist a:hover,
-.works-sublist a[aria-current="page"] {
+.works-sublist a:hover {
 	color: var(--muted);
+}
+
+.works-sublist a[aria-current="page"] {
+	font-weight: 700;
 }
 
 .work-feed {
