@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import VenueInfo from "../../components/VenueInfo.astro";
 import { getCollection, render } from "astro:content";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 
 export async function getStaticPaths() {
 	const works = await getCollection("works");
@@ -60,9 +60,50 @@ const catalogueWithMain = mainVenues.length > 0 || trailingVenues.length === 0;
 const afterPhotographyCount = data.imagesAfterPhotography ?? 0;
 const mainImages = afterPhotographyCount > 0 ? images.slice(0, -afterPhotographyCount) : images;
 const afterPhotographyImages = afterPhotographyCount > 0 ? images.slice(-afterPhotographyCount) : [];
+
+// Raw, unformatted meta description: literally the page's own content, in the
+// order it actually appears on the page (title, medium/year, venue, body text),
+// not a written summary — cut off wherever it runs long, same as it reads on
+// the page itself.
+const descriptionLines: string[] = [data.title];
+
+if (!data.hideTopYear) {
+	const medYear = [data.medium, data.year].filter(Boolean).join(". ");
+	if (medYear) descriptionLines.push(medYear);
+}
+
+const firstVenue = mainVenues[0];
+if (firstVenue) {
+	if (firstVenue.exhibitionTitle) descriptionLines.push(firstVenue.exhibitionTitle);
+	const venueLine = [firstVenue.venue, firstVenue.dates].filter(Boolean).join(", ");
+	if (venueLine) descriptionLines.push(venueLine);
+	if (firstVenue.curator) descriptionLines.push(`Curated by ${firstVenue.curator}.`);
+}
+
+if (work.body && work.body.trim().length > 0) {
+	const plainBody = work.body
+		.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+		.replace(/[*_#>`]/g, "")
+		.trim();
+	descriptionLines.push("", plainBody);
+}
+
+const rawDescription = descriptionLines.join("\n");
+const description =
+	rawDescription.length > 300 ? rawDescription.slice(0, 300) : rawDescription;
+
+const ogImage = images[0]
+	? await getImage({ src: images[0], width: 1200, format: "jpg", quality: 80 })
+	: undefined;
 ---
 
-<Layout title={`${data.title} — Lenard Giller`} active="works" currentWorkSlug={work.id}>
+<Layout
+	title={`${data.title} — Lenard Giller`}
+	description={description}
+	image={ogImage?.src}
+	active="works"
+	currentWorkSlug={work.id}
+>
 	<article class="work">
 		<h1><em>{data.title}</em></h1>
 

@@ -10,9 +10,22 @@ const rendered = await Promise.all(
 		Content: (await render(entry)).Content,
 	})),
 );
+
+// Raw, unformatted description: literally the page's own content in order,
+// the same way it reads on the page itself, cut off wherever it runs long.
+const rawText = entries
+	.map((entry) => {
+		const plain = entry.body
+			?.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1")
+			.replace(/[*_#>`]/g, "")
+			.trim();
+		return plain ? `${entry.data.year} ${plain}` : `${entry.data.year}`;
+	})
+	.join("\n");
+const description = rawText.length > 300 ? rawText.slice(0, 300) : rawText;
 ---
 
-<Layout title="Bibliography — Lenard Giller" active="bibliography">
+<Layout title="Bibliography — Lenard Giller" description={description} active="bibliography">
 	<section class="cv">
 		<div class="group">
 			{
