@@ -74,9 +74,13 @@ a:hover {
 	font-size: var(--sidebar-size);
 }
 
-.sidebar nav a:hover,
-.sidebar nav > a[aria-current="page"] {
+.sidebar nav a:hover {
 	color: var(--muted);
+}
+
+.sidebar nav > a[aria-current="page"] {
+	font-weight: 700;
+	font-size: 10px;
 }
 
 .content {
