@@ -152,9 +152,8 @@ a:hover {
 }
 
 .back-to-top {
-	position: fixed;
-	right: 24px;
-	bottom: 24px;
+	display: block;
+	margin-top: var(--base-line);
 	font-size: var(--base-size);
 	color: var(--fg);
 }

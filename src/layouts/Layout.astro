@@ -66,7 +66,6 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				<slot />
 			</main>
 		</div>
-		<a href="#top" class="back-to-top">Back to Top</a>
 		<script>
 			// Every /works/<slug>/ page renders the full feed of all works, so that
 			// scrolling up from wherever you land always works — this just jumps
@@ -121,15 +120,13 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				sections.forEach((section) => observer.observe(section));
 			}
 
-			// "Back to Top" link: smooth-scrolls back up when clicked.
-			const backToTop = document.querySelector<HTMLAnchorElement>(".back-to-top");
-
-			if (backToTop) {
-				backToTop.addEventListener("click", (event) => {
+			// "Back to Top" links (one after each work): smooth-scroll back up.
+			document.querySelectorAll<HTMLAnchorElement>(".back-to-top").forEach((link) => {
+				link.addEventListener("click", (event) => {
 					event.preventDefault();
 					window.scrollTo({ top: 0, behavior: "smooth" });
 				});
-			}
+			});
 		</script>
 	</body>
 </html>
