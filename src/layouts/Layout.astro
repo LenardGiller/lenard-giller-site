@@ -121,18 +121,10 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				sections.forEach((section) => observer.observe(section));
 			}
 
-			// "Back to Top" link: only visible once you've scrolled down a bit,
-			// smooth-scrolls back up when clicked.
+			// "Back to Top" link: smooth-scrolls back up when clicked.
 			const backToTop = document.querySelector<HTMLAnchorElement>(".back-to-top");
 
 			if (backToTop) {
-				const toggleVisibility = () => {
-					backToTop.classList.toggle("visible", window.scrollY > window.innerHeight * 0.5);
-				};
-
-				toggleVisibility();
-				window.addEventListener("scroll", toggleVisibility, { passive: true });
-
 				backToTop.addEventListener("click", (event) => {
 					event.preventDefault();
 					window.scrollTo({ top: 0, behavior: "smooth" });

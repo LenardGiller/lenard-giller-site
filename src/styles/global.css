@@ -156,19 +156,11 @@ a:hover {
 	right: 24px;
 	bottom: 24px;
 	font-size: var(--base-size);
-	color: var(--muted);
-	opacity: 0;
-	pointer-events: none;
-	transition: opacity 0.2s ease;
-}
-
-.back-to-top.visible {
-	opacity: 1;
-	pointer-events: auto;
+	color: var(--fg);
 }
 
 .back-to-top:hover {
-	color: var(--fg);
+	color: var(--muted);
 }
 
 .work h1 {
