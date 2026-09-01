@@ -81,7 +81,7 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				? document.querySelector<HTMLElement>(`[data-work-slug="${landingSlug}"]`)
 				: undefined;
 
-			landingSection?.scrollIntoView({ behavior: "instant", block: "start" });
+			landingSection?.scrollIntoView({ block: "start" });
 
 			// As the visitor scrolls through the continuous feed of works, keep the
 			// sidebar's current-page indicator in sync with whichever work is
