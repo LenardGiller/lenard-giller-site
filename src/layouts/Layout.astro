@@ -66,7 +66,7 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				<slot />
 			</main>
 		</div>
-		<a href="#top" class="back-to-top">Back to Top</a>
+		{active === "works" && <a href="#top" class="back-to-top">Back to Top</a>}
 		<script>
 			// Every /works/<slug>/ page renders the full feed of all works, so that
 			// scrolling up from wherever you land always works — this just jumps
@@ -121,8 +121,11 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 				sections.forEach((section) => observer.observe(section));
 			}
 
-			// "Back to Top" links (one after each work): smooth-scroll back up.
-			document.querySelectorAll<HTMLAnchorElement>(".back-to-top").forEach((link) => {
+			// "Back to Top": on a page with the continuous works feed, smooth-scroll
+			// back up in place. On bibliography/contact (which aren't part of the
+			// feed) it's a plain link back to the landing page instead, so leave
+			// its normal navigation alone.
+			document.querySelectorAll<HTMLAnchorElement>('.back-to-top[href="#top"]').forEach((link) => {
 				link.addEventListener("click", (event) => {
 					event.preventDefault();
 					window.scrollTo({ top: 0, behavior: "smooth" });
