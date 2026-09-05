@@ -273,14 +273,34 @@ a:hover {
 /* Below this, there isn't reliably enough room between the image column
    and the viewport edge for the content-anchored position above (it can
    run out of space or even overlap the image on smaller laptop screens
-   in the ~720-1300px range) - a plain fixed corner, within .content's
-   own empty 48px right padding, is safe at any width down to mobile. */
+   in the ~720-1300px range). Right corner doesn't work either at these
+   widths: .content's own empty right padding is only 48px, narrower
+   than the "Back to Top" text itself (~57px), so anchoring flush right
+   still lets it spill ~25px into the image column - measured directly,
+   not assumed. The sidebar's own column, at the *left* edge, is never
+   touched by images at all (they only ever live in .content, to its
+   right), so anchor there instead - safe at any width down to 720px,
+   where .site stops being a side-by-side row (see below). */
 @media (max-width: 1300px) {
 	.back-to-top {
 		top: auto;
-		left: auto;
-		right: 16px;
+		left: 24px;
+		right: auto;
 		bottom: 16px;
 		transform: none;
+	}
+}
+
+/* Below 720px .site stacks into one column (see above) - the sidebar is
+   no longer a pinned-left strip, so a fixed left corner would float
+   over full-width content/images instead of empty sidebar space. Drop
+   the fixed positioning entirely and let the link sit in normal flow,
+   after everything: it then can't overlap content it comes after. */
+@media (max-width: 720px) {
+	.back-to-top {
+		position: static;
+		display: block;
+		width: fit-content;
+		margin: 0 24px 48px;
 	}
 }
