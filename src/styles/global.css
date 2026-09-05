@@ -169,12 +169,19 @@ a:hover {
 
 .back-to-top {
 	position: fixed;
-	/* Positioned to match the spot marked on the reference screenshot.
-	   left pushed to 95% (was 89%) so it clears the image column on
-	   smaller 13/14" laptop screens instead of overlapping it. */
+	/* Anchored to the content column's actual right edge (which is
+	   min(900px, available width) once .content's own 48px right
+	   padding is accounted for), not a viewport percentage — a
+	   percentage can't work here since the image column has a fixed
+	   900px cap: it either overlaps the image on narrower screens or
+	   drifts hundreds of pixels away from the content on wide ones.
+	   This keeps a consistent ~32px gap past the image at any width
+	   from this breakpoint up. Below it, see the media query: there
+	   isn't enough room for this at all, so it drops to a plain
+	   fixed corner instead. */
 	top: 90%;
-	left: 95%;
-	transform: translate(-50%, -50%);
+	left: calc(min(1160px, 100vw - 48px) + 32px);
+	transform: translateY(-50%);
 	font-size: var(--base-size);
 	color: var(--fg);
 }
@@ -261,7 +268,14 @@ a:hover {
 	.content {
 		padding: 8px 24px 64px;
 	}
+}
 
+/* Below this, there isn't reliably enough room between the image column
+   and the viewport edge for the content-anchored position above (it can
+   run out of space or even overlap the image on smaller laptop screens
+   in the ~720-1300px range) - a plain fixed corner, within .content's
+   own empty 48px right padding, is safe at any width down to mobile. */
+@media (max-width: 1300px) {
 	.back-to-top {
 		top: auto;
 		left: auto;
