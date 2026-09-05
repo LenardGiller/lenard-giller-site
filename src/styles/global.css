@@ -169,9 +169,11 @@ a:hover {
 
 .back-to-top {
 	position: fixed;
-	/* Positioned to match the spot marked on the reference screenshot. */
+	/* Positioned to match the spot marked on the reference screenshot.
+	   left pushed to 95% (was 89%) so it clears the image column on
+	   smaller 13/14" laptop screens instead of overlapping it. */
 	top: 90%;
-	left: 89%;
+	left: 95%;
 	transform: translate(-50%, -50%);
 	font-size: var(--base-size);
 	color: var(--fg);
