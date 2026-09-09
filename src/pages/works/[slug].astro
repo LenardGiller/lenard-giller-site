@@ -1,7 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import WorkContent from "../../components/WorkContent.astro";
-import Bibliography from "../../components/Bibliography.astro";
 import { getCollection } from "astro:content";
 import { getImage } from "astro:assets";
 
@@ -93,8 +92,4 @@ const pageTitle = work.id === "sediment" ? "Lenard Giller" : `${data.title} — 
 			<WorkContent work={w} />
 		))}
 	</div>
-	<section id="bibliography" class="cv bibliography-section">
-		<p class="bibliography-heading">Bibliography</p>
-		<Bibliography />
-	</section>
 </Layout>

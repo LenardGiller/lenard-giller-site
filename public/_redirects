@@ -8,9 +8,3 @@
 / /works/sediment/ 302
 /works /works/sediment/ 302
 /works/ /works/sediment/ 302
-
-# Bibliography used to be its own page; it's now the tail end of the same
-# continuous works feed (scroll past the last project - currently
-# productions, highest `order` value - to reach it). Send old links there.
-/bibliography /works/productions/#bibliography 302
-/bibliography/ /works/productions/#bibliography 302

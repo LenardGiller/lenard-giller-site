@@ -167,28 +167,6 @@ a:hover {
 	margin-top: 80px;
 }
 
-/* Bibliography, appended after the last work. Unlike the 80px between
-   two works, this gap is deliberately a full blank screen: scrolling
-   down from productions should hit open space, not a blended transition,
-   before bibliography arrives - reading as its own page, not the next
-   item in the list. The direct jump-link is unaffected either way:
-   scrollIntoView aligns bibliography's own top edge to the viewport
-   regardless of how much margin sits above it, so clicking the sidebar
-   link still lands straight on the content, skipping this gap entirely. */
-.bibliography-section {
-	margin-top: 100vh;
-	padding-bottom: 50vh;
-}
-
-/* Deliberately bold but not italic, unlike .work h1: those are actual
-   project titles, this is a section label for the list that follows -
-   same visual weight, distinct enough not to read as another project. */
-.bibliography-heading {
-	font-size: 10px;
-	font-weight: 700;
-	margin: 0 0 var(--base-line);
-}
-
 .back-to-top {
 	position: fixed;
 	/* Anchored to the content column's actual right edge (which is
