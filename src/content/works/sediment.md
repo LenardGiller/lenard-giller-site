@@ -21,10 +21,6 @@ venueBeforeImages: true
 descriptionBeforeVenue: false
 descriptionBeforeImages: false
 imagesBeforeInfo: 1
-imagesBeforeDescription: null
-trailingImages: null
-imagesAfterPhotography: null
-venuesAfterImages: null
 venues:
   - exhibitionTitle: ''
     venue: Petrine, Paris
