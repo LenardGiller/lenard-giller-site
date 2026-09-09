@@ -167,6 +167,23 @@ a:hover {
 	margin-top: 80px;
 }
 
+/* Bibliography, appended after the last work so the feed keeps going
+   straight into it instead of stopping - same top spacing as between
+   two works, so it reads as the next section rather than a bolted-on
+   afterthought. */
+.bibliography-section {
+	margin-top: 80px;
+}
+
+/* Deliberately bold but not italic, unlike .work h1: those are actual
+   project titles, this is a section label for the list that follows -
+   same visual weight, distinct enough not to read as another project. */
+.bibliography-heading {
+	font-size: 10px;
+	font-weight: 700;
+	margin: 0 0 var(--base-line);
+}
+
 .back-to-top {
 	position: fixed;
 	/* Anchored to the content column's actual right edge (which is
