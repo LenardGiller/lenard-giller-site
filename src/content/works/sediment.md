@@ -1,7 +1,7 @@
 ---
 title: sediment
 order: 1
-year: "2025"
+year: '2025'
 images:
   - 001_sediment-lenard-giller.jpg
   - 002_sediment-lenard-giller.jpg
@@ -11,17 +11,30 @@ images:
   - 006_sediment-lenard-giller.jpg
   - 007_sediment-lenard-giller.jpg
   - 018_sediment-lenard-giller.jpg
-  - 019_sediment-lenard-giller.jpg
   - 020_sediment-lenard-giller.jpg
   - 021_sediment-lenard-giller.jpg
-imagesBeforeInfo: 1
-venueBeforeImages: true
-hideTopYear: true
+medium: ''
+catalogue: ''
 photography: Thomas Lannes
+hideTopYear: true
+venueBeforeImages: true
+descriptionBeforeVenue: false
+descriptionBeforeImages: false
+imagesBeforeInfo: 1
+imagesBeforeDescription: null
+trailingImages: null
+imagesAfterPhotography: null
+venuesAfterImages: null
 venues:
-  - venue: Petrine, Paris
+  - exhibitionTitle: ''
+    venue: Petrine, Paris
     dates: 20 October – 20 December, 2025
+    curator: ''
+    photography: ''
+    participatingArtists: ''
+press: []
 ---
+
 The Messingkauf Dialogues, from the German Der Messingkauf, is arguably Bertolt Brecht's most pivotal text, serving as an imprint of thoughts for his Epic theatre movement and dialectics of dramaturgy. The unfinished work, written between 1939 and 1942, is a lengthy jumble of fragmented notes on theatre's potentialities beyond simple stage narrative, in which form is a malleable device to provoke critical self-reflection. These scribblings produce a palimpsest wherein layers of textual sediment trace the seismic changes Brecht yielded in theatre.
 
 In the original German, Messingkauf translates directly to "Buying Brass"– a far more apt distillation than its official English title, considering the text's allegorical conversations, where a merchant approaches a brass band trio in hopes of acquiring their instruments for the metal's monetary value. His request prompts a debate on the instruments' immaterial significance, defined in byproducts that can't really be codified–say, the emotional power of their music, or their histories of fabrication–but are nonetheless embedded in the brass, reflecting nuance imported in their existence. Buying Brass is ultimately, then, a parable, laying bare the inherent relativity of 'meaning' as a situational construct.
