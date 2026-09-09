@@ -71,10 +71,17 @@ const ogImage =
 		: leadImage
 			? await getImage({ src: leadImage, width: 1200, format: "jpg", quality: 80 })
 			: undefined;
+
+// Same reasoning as the image above: since / lands here, this is the page
+// search engines actually index as the homepage, so its title should read
+// as a plain name ("Lenard Giller"), not a per-project title - matching
+// the reference site (lydiaourahmane.com), whose homepage title is just
+// her name, not tied to whatever piece happens to be featured on it.
+const pageTitle = work.id === "sediment" ? "Lenard Giller" : `${data.title} — Lenard Giller`;
 ---
 
 <Layout
-	title={`${data.title} — Lenard Giller`}
+	title={pageTitle}
 	description={description}
 	image={ogImage?.src}
 	active="works"
