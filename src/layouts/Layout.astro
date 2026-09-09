@@ -22,6 +22,11 @@ const ogImageURL = new URL(image ?? "/og-default.jpg", Astro.site);
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<!-- Crawlers/apps that can't read SVG favicons (WhatsApp's link-preview
+		     fetcher among them) fall back to requesting /favicon.ico directly,
+		     ignoring the tag above entirely - so it has to carry the same mark
+		     too, declared explicitly rather than relying on that convention. -->
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
