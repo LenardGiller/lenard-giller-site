@@ -1,7 +1,7 @@
 ---
 title: action at a distance
 order: 4
-year: "2025"
+year: "2024"
 images:
   - 001_action-at-a-distance-lenard-giller.jpg
   - 002_action-at-a-distance-lenard-giller.jpg
