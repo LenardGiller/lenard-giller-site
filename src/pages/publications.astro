@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 
-const entries = await getCollection("bibliography");
+const entries = await getCollection("publications");
 entries.sort((a, b) => a.data.order - b.data.order);
 const rendered = await Promise.all(
 	entries.map(async (entry) => ({
@@ -25,7 +25,7 @@ const rawText = entries
 const description = rawText.length > 300 ? rawText.slice(0, 300) : rawText;
 ---
 
-<Layout title="Bibliography — Lenard Giller" description={description} active="bibliography">
+<Layout title="Publications — Lenard Giller" description={description} active="publications">
 	<section class="cv">
 		<div class="group">
 			{

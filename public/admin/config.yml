@@ -58,10 +58,10 @@ collections:
           - { label: URL, name: url, widget: string }
       - { label: Body (description text), name: body, widget: markdown }
 
-  - name: bibliography
-    label: Bibliography
+  - name: publications
+    label: Publications
     label_singular: Citation
-    folder: src/content/bibliography
+    folder: src/content/publications
     create: true
     delete: true
     slug: "{{order}}"

@@ -48,12 +48,12 @@ const works = defineCollection({
 	}),
 });
 
-const bibliography = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/bibliography" }),
+const publications = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/publications" }),
 	schema: z.object({
 		year: z.number(),
 		order: z.number(),
 	}),
 });
 
-export const collections = { works, bibliography };
+export const collections = { works, publications };
